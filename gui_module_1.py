@@ -2,6 +2,7 @@ from tkinter import *
 from module1twitterzuil2 import *
 from tkinter.messagebox import showinfo
 
+# define the functions of the gui screen:
 def tweet():
     message = messageEntry.get()
     client = userEntry.get()
