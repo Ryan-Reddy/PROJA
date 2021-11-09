@@ -1,45 +1,34 @@
 import psycopg2
-
+# -----------------------------------------------------------------
 # connect to the db
 con = psycopg2.connect(
     host = "localhost",         #host upon which i run the database
-    database = "databasename",  #database name
+    database = "TwitterPaal",  #database name
     user = "postgres",          #username standard=postgres
-    password = "postgres"       #password from installation
-    # port = 5432 runs standard only needed if port is changed
+    password = "algra50"       #password from installation
 )
-
-# cursor
+    # port = 5432 runs standard only needed if port is changed
+# -----------------------------------------------------------------
 cur = con.cursor()
+#
+# executing a sql to instert data:
+insert_query = ''' INSERT INTO tweets (ID, NAME, PRICE) VALUES (1, 'Ryan', 1200)'''
+cur.execute(insert_query)
 
 
-# Uitvoer query, atribuut, atribuut moet je vervangen voor de atributen die je wilt fetchen.
-# zet select * from tabel om alles van een tabel te fetchen
-# cur.execute("select atribuut, atribuut from tabel")
-cur.execute('select id, name from employees')
+# insert_query2 = ''' INSERT INTO gebruiker (ID, NAME, PRICE) VALUES (2, 'Opa', 400)'''
+# insert_query3 = ''' INSERT INTO gebruiker (ID, NAME, PRICE) VALUES (3, 'mom', 2455)'''
+# cur.execute(insert_query2)
+# cur.execute(insert_query3)
 
-
-# execute query
-
-# Door de constructie met (%s, %s, %s), (attribuut, attribuut, attribuut)) zetten we alleen maar strings erin
-# die we later toewijzen. Hierdoor kunnen we de database vullen zonder steeds de code aan te moeten passen.
-# Deze manier is ook veiliger dan gelijk values (attribuut, attribuut, attribuut)).
-
-cur.execute("insert into employees (id,name) values (%s, %s)", (1, "satoshi"))
-
-
-# return rows
-rows = cur.fetchall()
-
-for r in rows:
-    print(f"id {r[0]} name {r[1]}")
-
-# commit transaction (save) to database (needed for writing to database
 con.commit()
+print('1 record inserted correctly')
+-----------------------------------------------------------------
+# retrieve data
+cur.execute('SELECT * from tweets')
+record = cur.fetchall()
+print('fetchall result: ', record)
 
 
-# close cursor
 cur.close()
-
-# close the conenction
 con.close()
