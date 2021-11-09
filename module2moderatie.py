@@ -26,6 +26,7 @@ def modifystatustweet(berichtOK, modNumEntry):
         user="postgres",  # username standard=postgres
         password="algra50")  # password from installation
     cur = con.cursor()
+
     cur.execute('tweet_number FROM tweets WHERE tweet_status = 0 LIMIT 1')
     record = cur.fetchall()
     print('tweetnumber', record)
