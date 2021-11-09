@@ -15,7 +15,8 @@ def clicked():
     bericht = 'Bedankt voor uw bericht!'
     showinfo(title='Ontvangen!', message=bericht)
 
-
+def clicked_exit():
+    root.quit()
 
 root = Tk()
 
@@ -38,6 +39,9 @@ locationEntry.pack()
 
 button = Button(master=root, text="press here", command=clicked)
 button.pack()
+
+button = Button(master=root, text="exit", command=clicked_exit)
+button.pack(side=LEFT)
 
 label = Label(master=root)
 label.pack()
