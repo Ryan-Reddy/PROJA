@@ -12,7 +12,7 @@ con = psycopg2.connect(
 cur = con.cursor()
 #
 # executing a sql to instert data:
-insert_query = ''' INSERT INTO tweets (ID, NAME, PRICE) VALUES (1, 'Ryan', 1200)'''
+insert_query = ''' INSERT INTO tweets (bericht, klant_id_fk, station) VALUES ('herro', 1, 'Schiermonnikoog')'''
 cur.execute(insert_query)
 
 
@@ -23,7 +23,7 @@ cur.execute(insert_query)
 
 con.commit()
 print('1 record inserted correctly')
------------------------------------------------------------------
+# -----------------------------------------------------------------
 # retrieve data
 cur.execute('SELECT * from tweets')
 record = cur.fetchall()
