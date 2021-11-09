@@ -20,7 +20,7 @@ def clicked():
 root = Tk()
 
 # GUI screen design:
- label = Label(master=root,text='Type your message here:',height=2)
+label = Label(master=root,text='Type your message here:',height=2)
 label.pack()
 messageEntry = Entry(master=root)
 messageEntry.pack()
