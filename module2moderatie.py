@@ -1,51 +1,49 @@
+import psycopg2
+
 #Start Module2:
 
-def tweet_keuren(berichtOK):
-    tweets = open("tweets.txt", "r")
-    temptweet = tweets.readline()
-    tweets.close()
-    # berichtOK = input("Is het bericht goedgekeurd? ja/nee: ").lower()
+# get info from the next unrated tweet:
+def readnexttweet():
+    con = psycopg2.connect(
+        host="localhost",  # host upon which i run the database
+        database="TwitterPaal",  # database name
+        user="postgres",  # username standard=postgres
+        password="algra50")  # password from installation
+    cur = con.cursor()
+    cur.execute('SELECT bericht , tweet_number, tweet_status FROM tweets WHERE tweet_status = 0 LIMIT 1')
+    record = cur.fetchall()
+    cur.close()
+    con.close()
+    return record[0][0]
+
+# get the tweetnumber of the next unrated tweet, update it after choice mod:
+def modifystatustweet(berichtOK, modNumEntry):
+    print(berichtOK)
+    print(modNumEntry)
+    con = psycopg2.connect(
+        host="localhost",  # host upon which i run the database
+        database="TwitterPaal",  # database name
+        user="postgres",  # username standard=postgres
+        password="algra50")  # password from installation
+    cur = con.cursor()
+    cur.execute('tweet_number FROM tweets WHERE tweet_status = 0 LIMIT 1')
+    record = cur.fetchall()
+    print('tweetnumber', record)
+
     if berichtOK == "ja":
-        tweets = open("tweets.txt", "r")
-        print("Bericht: \n" + tweets.readline() + "is goedgekeurd")
-        tweets.close()
-        with open("tweets.txt", "r") as ob:
-            zinnen = ob.readlines()
-            ptr = 1
-            with open("tweets.txt", "w") as nb:
-                for zin in zinnen:
-                    if ptr != 1:
-                        nb.write(zin)
-                    ptr += 1
-        goedgekeurde_tweets = open("goedgekeurde_tweets.txt", "a")
-        goedgekeurde_tweets.write(str(temptweet) + "\n")
-        goedgekeurde_tweets.close()
+        cur.execute('tweet_number FROM tweets WHERE tweet_status = 0 LIMIT 1')
         return exit()
 
     elif berichtOK == "nee":
-        tweets = open("tweets.txt", "r")
-        print("Bericht: \n" + tweets.readline() + "is afgekeurd")
-        tweets.close()
-        with open("tweets.txt", "r") as ob:
-            zinnen = ob.readlines()
-            ptr = 1
-            with open("tweets.txt", "w") as nb:
-                for zin in zinnen:
-                    if ptr != 1:
-                        nb.write(zin)
-                    ptr += 1
-        afgekeurde_tweets = open("afgekeurde_tweets.txt", "a")
-        afgekeurde_tweets.write(str(temptweet) + "\n")
-        afgekeurde_tweets.close()
-        return exit()
+        cur.execute('tweet_number FROM tweets WHERE tweet_status = 0 LIMIT 1')
+        return
 
-    else:
-        return "ongeldige input"
-def readnexttweet():
-    tweets = open("tweets.txt", "r")
-    nexttweet=tweets.readline()
-    tweets.close()
+    # --------------------------------------
+    # update line with mod number
+    # --------------------------------------
 
-    return nexttweet
 
-# print(tweet_keuren())
+    cur.close()
+    con.close()
+
+    return exit()

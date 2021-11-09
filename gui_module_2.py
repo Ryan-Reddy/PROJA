@@ -4,33 +4,32 @@ from module2moderatie import *
 root = Tk()
 
 def clickedYes():
+    print(modNumEntry)
     berichtOK = 'ja'
-    print(tweet_keuren(berichtOK))
+    modifystatustweet(berichtOK, modNumEntry)
+
 def clickedNo():
+    print(modNumEntry)
     berichtOK = 'nee'
-    print(tweet_keuren(berichtOK))
-
-# ----------------------------------------
-def tweet():
-    message = messageEntry.get()
-    user = userEntry.get()
-    location = locationEntry.get()
-    twitty = nieuw_bericht(user, location, message)
-    label["text"] = "{}".format(twitty)
-
-def clicked():
-    tweet()
-    bericht = 'Bedankt voor uw bericht!'
-    showinfo(title='Ontvangen!', message=bericht)
-# ----------------------------------------
-
+    modifystatustweet(berichtOK, modNumEntry)
 
 nxttweet= readnexttweet()
 
-label = Label(master=root,text='Review the following tweet',height=2)
+# ----------------------------------------
+#           GUI design:
+
+
+
+label = Label(master=root,text='Type your moderator ID# here:', height=2)
 label.pack()
 
-label = Label(master=root,text=nxttweet,height=2)
+modNumEntry = Entry(master=root)
+modNumEntry.pack()
+
+label = Label(master=root,text='Review the following tweet: ',height=2)
+label.pack()
+
+label = Label(master=root,text=nxttweet,height=2, bg='blue', fg='white')
 label.pack()
 
 label = Label(master=root,text='Is it ok?',height=2)

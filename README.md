@@ -6,6 +6,7 @@ https://github.com/klugook/proja4.0
 **required packages:**
 
 psycopg2
+tkinter
 
 -------------------------------------------
 

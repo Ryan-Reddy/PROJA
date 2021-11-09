@@ -3,15 +3,13 @@ import psycopg2
 
 
 def posttodb(klant_naam, station, bericht):
-
-    # -----------------------------------------------------------------
     # connect to the db
     con = psycopg2.connect(
         host="localhost",  # host upon which i run the database
         database="TwitterPaal",  # database name
         user="postgres",  # username standard=postgres
-        password="algra50"  # password from installation
-    )
+        password="algra50")  # password from installation
+
     # port = 5432 runs standard only needed if port is changed
     cur = con.cursor()
 
