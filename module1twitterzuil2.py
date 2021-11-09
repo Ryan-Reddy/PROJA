@@ -29,7 +29,7 @@ def posttodb(klant_naam, station, bericht):
     record_to_insert2 = (bericht, station, klant_id_new_row)
     cur.execute(insert_query2, record_to_insert2)
 
-
+    # commit
     con.commit()
     print('1 record inserted correctly')
     cur.close()
