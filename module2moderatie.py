@@ -1,6 +1,14 @@
 import psycopg2
 from twython import Twython
 
+# from TwitterAPI import TwitterAPI
+
+from auth import (
+    Consumer_Key,
+    Consumer_Key_Secret,
+    Access_Token,
+    Access_Token_secret
+)
 
 #Start Module2:
 
@@ -92,6 +100,21 @@ def modifystatustweet(berichtOK, mod_name):
     return print('yellow')
 # ADD POSTTOTWITTER TO END
 
+# post to twitter functie:
+def post_to_twitter_function(message):
+    twitter = Twython(
+        Consumer_Key,
+        Consumer_Key_Secret,
+        Access_Token,
+        Access_Token_secret
+    )
+
+    twitter.update_status(status=message)
+    print("tweeted: {}s".format(message))
+
+
+
+
 def posttotwitter():
     con = psycopg2.connect(
         host="localhost",  # host upon which i run the database
@@ -103,29 +126,25 @@ def posttotwitter():
     # Check for unposted/verified tweet, save to tweet_to_go list:
     cur.execute('''SELECT (klant_id_fk, bericht, station) FROM tweets WHERE tweet_status = 2 LIMIT 1''')
     tweet_raw = cur.fetchall() # fetch tweetnumber next unmoderated tweet
-    print(tweet_raw)
-    tweet_to_go = tweet_raw[0][0].split(',()')
+    tweet_raw = tweet_raw[0][0].replace('(', '')
+    tweet_raw = tweet_raw.replace(')', '')
+    tweet_to_go = tweet_raw.split(',')
     print('stripped', tweet_to_go)
+    print(tweet_to_go[0])
 
-    from twython import Twython
 
-    # from TwitterAPI import TwitterAPI
+    # query om status naar gepost(3) te veranderen
+    query_changestatus_to_posted = '''UPDATE tweets SET tweet_status = (3) WHERE tweet_number = %s'''
 
-    from auth import (
-        Consumer_Key,
-        Consumer_Key_Secret,
-        Access_Token,
-        Access_Token_secret
-    )
+    # tweetnumberposted = cur.fetchall() # fetch tweetnumber last to post to change into status posted(3)
 
-    def post_to_twitter_function(message):
-        twitter = Twython(
-            Consumer_Key,
-            Consumer_Key_Secret,
-            Access_Token,
-            Access_Token_secret
-        )
+    recordtochange = tweet_to_go[0]
+    cur.execute(query_changestatus_to_posted % (recordtochange))
 
-        twitter.update_status(status=message)
-        print("tweeted: {}s".format(message))
+    # post to twitter finally:
     post_to_twitter_function(tweet_to_go)
+
+
+
+
+

@@ -8,7 +8,12 @@ https://github.com/klugook/proja4.0
 psycopg2
 tkinter
 twython
+pillow
+twitterapi
+geopy
 
+
+urllib
 -------------------------------------------
 
 Module 1 & GUI_Module_1 

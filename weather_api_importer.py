@@ -2,8 +2,16 @@
 from pprint import pprint
 import requests
 
-Location_input = 'Amsterdam'
+def welke_stad():
+    import urllib.request
+    import json
+    with urllib.request.urlopen("http://geolocation-db.com/json") as url:
+        data = json.loads(url.read().decode())
+        stad= data['city']
+    return stad
 
+
+Location_input = welke_stad()
 def weatherget():
     Location_input = 'Amsterdam'
 
@@ -20,4 +28,4 @@ def weatherget():
 
     weatherreport='Today in {} the weather will be {}.\nThe temperature right now is {}°C.\nThe minimum temperature will be {}°C and the max {}°C.\n'.format(location, dweather['description'],temperature,tempmin,tempmax)
     return weatherreport
-weatherget()
+print(weatherget())

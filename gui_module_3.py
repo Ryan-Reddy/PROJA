@@ -1,11 +1,14 @@
 from module2moderatie import *
 from tkinter import *
-from post_to_twitter import post_to_twitter
 from PIL import ImageTk,Image
 from read_from_twitter import grabtweets
 from weather_api_importer import *
+from geopylocation import *
 
 root = Tk()
+stad = welke_stad()
+
+print('stad',stad)
 
 def clicked_yes():
     yeslabel = Label(master=root, text='clicked yes')
@@ -20,6 +23,8 @@ def twitterscreen():
 
     return text
 
+def grabfromtwitter():
+    'YES'
 
 root.title('Twitter zuil notificatiescherm')
 
@@ -33,14 +38,25 @@ logo_label.pack(pady=15, padx=15)
 label = Label(master=root,text='Welkom bij de NS Twitterzuil',height=2,bg='blue',fg='yellow',font= 'Times 32')
 label.pack(pady=10, padx=17)
 
+# first message
+label = Label(master=root,text='in de stad: {}, postcode: {}'.format(stad[0],stad[1]),height=2,bg='blue',fg='yellow',font= 'Times 32')
+label.pack(pady=10, padx=17)
+
+label3 = Label(master=root,text='Laatste tweet: ',height=2,bg='blue',fg='white')
+label3.pack(pady=10, padx=17)
+
 # second message
+label3 = Label(master=root,text=grabtweets(),height=2,bg='blue',fg='white')
+label3.pack(pady=10, padx=17)
+
+# third message
 label2 = Label(master=root,text=twitterscreen(),height=2,bg='blue',fg='white')
 label2.pack(pady=10, padx=17)
 
-# third message
-label3 = Label(master=root,text=grabtweets(),height=2,bg='blue',fg='white')
-label3.pack(pady=10, padx=17)
 # gonna have to be a selective grab from DB
+label3 = Label(master=root,text='Weersvoorspelling het komende uur: ',height=2,bg='blue',fg='white')
+label3.pack(pady=1, padx=1)
+
 
 # fourth message weather
 label3 = Label(master=root,text=weatherget(),height=2,bg='blue',fg='white')
@@ -59,7 +75,6 @@ from pprint import pprint
 import requests
 # pro.openweathermap.org/data/2.5/forecast/hourly?q={city name}&appid={API key}
 # r = requests.get(
-#     'http://api.openweathermap.org/data/2.5/weather?q=Amsterdam&APPID=bec405355763e158b82e587d6f63b06b')  # .format(Amsterdam))
 # pprint(r.json())
 
 
