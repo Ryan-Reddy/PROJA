@@ -26,6 +26,6 @@ def weatherget():
     tempmax = round(mainreturn['temp_max']-273.15)
     tempmin = round(mainreturn['temp_min']-273.15)
 
-    weatherreport='Today in {} the weather will be {}.\nThe temperature right now is {}°C.\nThe minimum temperature will be {}°C and the max {}°C.\n'.format(location, dweather['description'],temperature,tempmin,tempmax)
+    weatherreport='The coming hour in {} the weather will be {}.\nThe temperature right now is {}°C.\nThe minimum temperature will be {}°C and the max {}°C.\n'.format(location, dweather['description'],temperature,tempmin,tempmax)
     return weatherreport
 print(weatherget())

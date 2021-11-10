@@ -1,4 +1,3 @@
-
 def welke_stad():
     import urllib.request
     import json
@@ -7,6 +6,4 @@ def welke_stad():
         stad= data['city']
         postcode = data['postal']
     return (stad,postcode)
-stad = welke_stad()
 
-print('stad', stad)

@@ -11,9 +11,10 @@ twython
 pillow
 twitterapi
 geopy
-
-
 urllib
+json
+
+
 -------------------------------------------
 
 Module 1 & GUI_Module_1 
