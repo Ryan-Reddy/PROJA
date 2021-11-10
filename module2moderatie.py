@@ -18,9 +18,9 @@ def readnexttweet():
     return record
 
 # get the tweetnumber of the next unrated tweet, update it after choice mod:
-def modifystatustweet(berichtOK, modnum):
+def modifystatustweet(berichtOK, mod_name):
     print('berichtok = ',berichtOK)
-    print('modnum= ',modnum)
+    print('modnum= ', mod_name)
     con = psycopg2.connect(
         host="localhost",  # host upon which i run the database
         database="TwitterPaal",  # database name
@@ -28,10 +28,12 @@ def modifystatustweet(berichtOK, modnum):
         password="algra50")  # password from installation
     cur = con.cursor()
 
-    # insert modnum into moderator(moderator_id)
-    insert_query = '''INSERT INTO moderator(moderator_id) VALUES (%s);'''
-    record_to_insert = (modnum),
+    # insert modname into moderator(moderator_id)
+    insert_query = '''INSERT INTO moderator(moderator_name) VALUES (%s) RETURNING moderator_id;'''
+    record_to_insert = (mod_name),
     cur.execute(insert_query, record_to_insert)
+    new_mod_id = cur.fetchone()
+    print(new_mod_id)
 
     # fetch tweetnumber next unmoderated tweet
     cur.execute('''SELECT tweet_number FROM tweets WHERE tweet_status = 0 LIMIT 1''')
@@ -51,7 +53,7 @@ def modifystatustweet(berichtOK, modnum):
         con.commit()
 
         insert_query = '''UPDATE tweets SET moderator_id_fk = %s WHERE tweet_number = %s; '''
-        record_to_insert = (modnum, record_in_use)
+        record_to_insert = (new_mod_id, record_in_use)
         cur.execute(insert_query, record_to_insert)
         con.commit()
 
@@ -73,7 +75,7 @@ def modifystatustweet(berichtOK, modnum):
         con.commit()
 
         insert_query = '''UPDATE tweets SET moderator_id_fk = %s WHERE tweet_number = %s; '''
-        record_to_insert = (modnum, record_in_use)
+        record_to_insert = (mod_name, record_in_use)
         cur.execute(insert_query, record_to_insert)
         con.commit()
 
