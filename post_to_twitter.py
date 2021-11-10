@@ -9,7 +9,7 @@ from auth import (
     Access_Token_secret
 )
 
-def post_to_twitter():
+def post_to_twitter_function(message):
     twitter = Twython(
         Consumer_Key,
         Consumer_Key_Secret,
@@ -17,6 +17,5 @@ def post_to_twitter():
         Access_Token_secret
     )
 
-    message = 'Chancellor on brink of second bailout for banks'
     twitter.update_status(status=message)
     print("tweeted: {}s".format(message))

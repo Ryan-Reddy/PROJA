@@ -1,4 +1,6 @@
 import psycopg2
+from twython import Twython
+
 
 #Start Module2:
 
@@ -75,16 +77,55 @@ def modifystatustweet(berichtOK, mod_name):
         con.commit()
 
         insert_query = '''UPDATE tweets SET moderator_id_fk = %s WHERE tweet_number = %s; '''
-        record_to_insert = (mod_name, record_in_use)
+        record_to_insert = (new_mod_id, record_in_use)
         cur.execute(insert_query, record_to_insert)
         con.commit()
 
         cur.close()
         con.close()
-        print('tweet goedgekeurd')
+        print('tweet afgekeurd')
         return exit()
 
     cur.close()
     con.close()
 
     return print('yellow')
+# ADD POSTTOTWITTER TO END
+
+def posttotwitter():
+    con = psycopg2.connect(
+        host="localhost",  # host upon which i run the database
+        database="TwitterPaal",  # database name
+        user="postgres",  # username standard=postgres
+        password="algra50")  # password from installation
+    cur = con.cursor()
+
+    # Check for unposted/verified tweet, save to tweet_to_go list:
+    cur.execute('''SELECT (klant_id_fk, bericht, station) FROM tweets WHERE tweet_status = 2 LIMIT 1''')
+    tweet_raw = cur.fetchall() # fetch tweetnumber next unmoderated tweet
+    print(tweet_raw)
+    tweet_to_go = tweet_raw[0][0].split(',()')
+    print('stripped', tweet_to_go)
+
+    from twython import Twython
+
+    # from TwitterAPI import TwitterAPI
+
+    from auth import (
+        Consumer_Key,
+        Consumer_Key_Secret,
+        Access_Token,
+        Access_Token_secret
+    )
+
+    def post_to_twitter_function(message):
+        twitter = Twython(
+            Consumer_Key,
+            Consumer_Key_Secret,
+            Access_Token,
+            Access_Token_secret
+        )
+
+        twitter.update_status(status=message)
+        print("tweeted: {}s".format(message))
+    post_to_twitter_function(tweet_to_go)

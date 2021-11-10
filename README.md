@@ -7,6 +7,7 @@ https://github.com/klugook/proja4.0
 
 psycopg2
 tkinter
+twython
 
 -------------------------------------------
 
