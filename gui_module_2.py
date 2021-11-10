@@ -4,14 +4,14 @@ from module2moderatie import *
 root = Tk()
 
 def clickedYes():
-    print(modNumEntry)
+    modnum = modNumEntry.get()
     berichtOK = 'ja'
-    modifystatustweet(berichtOK, modNumEntry)
+    modifystatustweet(berichtOK, modnum)
 
 def clickedNo():
-    print(modNumEntry)
+    modnum = modNumEntry.get()
     berichtOK = 'nee'
-    modifystatustweet(berichtOK, modNumEntry)
+    modifystatustweet(berichtOK, modnum)
 
 nxttweet= readnexttweet()
 
@@ -29,7 +29,7 @@ modNumEntry.pack()
 label = Label(master=root,text='Review the following tweet: ',height=2)
 label.pack()
 
-label = Label(master=root,text=nxttweet,height=2, bg='blue', fg='white')
+label = Label(master=root,text=nxttweet[0][0],height=2, bg='blue', fg='white')
 label.pack()
 
 label = Label(master=root,text='Is it ok?',height=2)
