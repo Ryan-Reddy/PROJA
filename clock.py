@@ -1,7 +1,7 @@
 from tkinter import *
 import time
 
-def clock():
+def livetime():
 
     def __init__(self,master=None):
         Frame.__init__(self, master)
@@ -14,4 +14,7 @@ def clock():
         now = time.strftime("%H:%M:%S")
         self.label.configure(text=now)
         self.after(1000, self.update_clock)
+    __init__()
+    update_clock()
+    return now
 

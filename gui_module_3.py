@@ -12,8 +12,8 @@ root.title('Twitter zuil notificatiescherm')
 
 stad = welke_stad()
 
-def clicked_yes():
-    yeslabel = Label(master=root, text='clicked yes')
+def clicked_quit():
+    yeslabel = Label(master=root, text='quit', command=quit())
     yeslabel.pack()
 
 def twitterscreen():
@@ -64,12 +64,12 @@ label3 = Label(master=root,text=weatherget(),height=2,bg='blue',fg='white')
 label3.config(height=8, width=70)
 label3.pack(pady=50, padx=50)
 
-# clock:
-label = Label(master=root,text='in de stad: {}, postcode: {}'.format(stad[0],stad[1]),height=2,bg='blue',fg='yellow',font= 'Times 32')
-label.pack(pady=10, padx=17)
+# # clock:
+# label = Label(master=root,text='de tijd is {}'.format(livetime),height=2,bg='blue',fg='yellow',font= 'Times 32')
+# label.pack(pady=10, padx=17)
 
 
-buttonYes = Button(master=root, text="Yes", command=clicked_yes)
+buttonYes = Button(master=root, text="quit", command=clicked_quit)
 buttonYes.pack(padx=10,pady=10)
 
 #weerbericht:
