@@ -19,7 +19,7 @@ json
 
 Module 1 & GUI_Module_1 
 
-
+Op dit scherm kan je een tweet invoeren, inclusief je locatie en naam. 
 
 -------------------------------------------
 
@@ -44,3 +44,5 @@ Het systeem veranderd vervolgens de status naar:
 -------------------------------------------
 
 Module 3 & GUI_Module_3
+
+Op dit scherm kan je de laatste tweet zien, het weerbericht voor het komende uur, en de datum en tijd. Ook wordt de huidige locatie van de paal laten zien. 
