@@ -1,20 +1,27 @@
 from tkinter import *
 import time
 
-def livetime():
 
-    def __init__(self,master=None):
-        Frame.__init__(self, master)
-        self.master = master
-        self.label = Label(text="", fg="Red", font=("Helvetica", 18))
-        self.label.place(x=50,y=80)
-        self.update_clock()
+root = Tk()
+root.title('')
+root.geometry('600x400')
 
-    def update_clock(self):
-        now = time.strftime("%H:%M:%S")
-        self.label.configure(text=now)
-        self.after(1000, self.update_clock)
-    __init__()
-    update_clock()
-    return now
 
+def clock():
+    hour = time.strftime("%H")
+    minute = time.strftime("%M")
+    second = time.strftime("%S")
+
+    clock_label.config(text=hour + ':' + minute + ':' + second)
+
+
+def update():
+    clock_label.config(text='new text')
+
+
+clock_label = Label(master=root, text=clock)
+clock_label.pack(pady=20)
+
+clock()
+
+root.mainloop()

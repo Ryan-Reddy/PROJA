@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 from read_from_twitter import grabtweets
 from weather_api_importer import *
 from geopylocation import *
-from clock import *
+import time
 
 root = Tk()
 root.title('Twitter zuil notificatiescherm')
@@ -16,14 +16,6 @@ def clicked_quit():
     yeslabel = Label(master=root, text='quit', command=quit())
     yeslabel.pack()
 
-def twitterscreen():
-    time = ''
-    if time == 1:
-        text = 'latest tweet here'
-    else:
-        text = 'weather'
-
-    return text
 
 def grabfromtwitter():
     'YES'
@@ -50,9 +42,6 @@ label3.pack(pady=10, padx=17)
 label3 = Label(master=root,text=grabtweets(),height=2,bg='blue',fg='white')
 label3.pack(pady=10, padx=17)
 
-# third message
-label2 = Label(master=root,text=twitterscreen(),height=2,bg='blue',fg='white')
-label2.pack(pady=10, padx=17)
 
 # gonna have to be a selective grab from DB
 label3 = Label(master=root,text='Weersvoorspelling het komende uur: ',height=2,bg='blue',fg='white')
@@ -64,9 +53,31 @@ label3 = Label(master=root,text=weatherget(),height=2,bg='blue',fg='white')
 label3.config(height=8, width=70)
 label3.pack(pady=50, padx=50)
 
-# # clock:
-# label = Label(master=root,text='de tijd is {}'.format(livetime),height=2,bg='blue',fg='yellow',font= 'Times 32')
-# label.pack(pady=10, padx=17)
+# CLOCK
+def clock():
+    hour = time.strftime("%H")
+    minute = time.strftime("%M")
+    second = time.strftime("%S")
+    day = time.strftime('%A')
+
+    clock_label.config(text=hour + ':' + minute + ':' + second)
+    clock_label.after(1000, clock)
+
+    date_label.config(text='Vandaag is het: '+day)
+
+def update():
+    clock_label.config(text='new text')
+
+date_label = Label(root, text='', font='Helvetica, 16', bg = 'blue', fg='white')
+date_label.pack(pady=10)
+
+clock_label = Label(master=root, text='', font='Helvetica, 42', bg='black', fg='green')
+clock_label.pack(pady=20)
+clock()
+
+
+
+
 
 
 buttonYes = Button(master=root, text="quit", command=clicked_quit)
